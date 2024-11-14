@@ -1,0 +1,30 @@
+@startuml Diagrama
+
+class Paciente {
+    -nome: char[30]
+}
+
+class FilaCircular {
+    -fila: Paciente[MAX]
+    -inicio: int
+    -fim: int
+    -quantidade: int
+    +inicializarFila(): void
+    +estaCheia(): int
+    +estaVazia(): int
+    +enfileirar(Paciente): void
+    +adicionarPaciente(Paciente): void
+    +exibirFilaDePacientes(): void
+    +chamarPacienteParaAtendimento(): void
+    +desenfileirar(): Paciente
+}
+
+class Menu {
+    +exibirMenu(): void
+}
+
+Menu "1" -- "1" FilaCircular : usa
+
+Paciente "1" -- "1..MAX" FilaCircular : armazena
+
+@enduml

@@ -1,0 +1,57 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+void limparBuffer() {
+    while (getchar() != '\n' && getchar() != EOF);
+}
+
+struct Cadastro {
+    char nome[30];
+    int idade;
+    long telefone;  // Corrigido para long, que pode armazenar valores maiores
+};
+
+typedef struct Cadastro cadastro;
+
+void iserirCadastro(cadastro *var, int tam) {
+    for (int i = 0; i < tam; i++) {
+        printf("Digite nome do cadastro %d: \n", i + 1);
+        scanf("%s", var[i].nome);
+        limparBuffer();  // Limpa o buffer de entrada
+
+        printf("Digite idade do cadastro %d: \n", i + 1);
+        scanf("%d", &var[i].idade);
+        limparBuffer();  // Limpa o buffer de entrada
+
+        printf("Digite telefone do cadastro %d: \n", i + 1);
+        scanf("%ld", &var[i].telefone);  // Usando %ld para ler long
+        limparBuffer();  // Limpa o buffer de entrada
+    }
+}
+
+void mostrarCadastro(cadastro *var, int tam) {
+    for (int i = 0; i < tam; i++) {
+        printf("Dados do cadastro %d: \n", i + 1);
+        printf("Nome: %s\n", var[i].nome);
+        printf("Idade: %d\n", var[i].idade);
+        printf("Telefone: %ld\n", var[i].telefone);  // Usando %ld para mostrar long
+    }
+}
+
+int main() {
+    int tam;
+    
+    printf("Digite a quantidade de cadastros desejada?\n");
+    scanf("%d", &tam);
+    cadastro *vet = (cadastro *) malloc(tam * sizeof(cadastro));
+    if (vet == NULL) {
+        printf("Erro na alocação de memória.\n");
+        return 1; // Sair do programa em caso de erro
+    }
+    
+    iserirCadastro(vet, tam);
+    mostrarCadastro(vet, tam);
+    
+    free(vet);
+    return 0;
+}
